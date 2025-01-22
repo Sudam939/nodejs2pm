@@ -2,10 +2,11 @@ import express from 'express'
 import { connectDb } from './database.js'
 import bodyParser from 'body-parser'
 import { createCompany } from './controllers/companyController.js'
-import { getCourses, postCourse } from './controllers/courseController.js'
+import { courseRoute } from './routes/courseRoute.js'
+import 'dotenv/config'
 
 const app = express()
-const port = 8000
+const port = process.env.PORT
 
 export const connection = await connectDb()
 
@@ -25,8 +26,9 @@ app.get('/', (req, res) => {
 
 app.post("/api/company", createCompany)
 
-app.post("/api/course", postCourse)
-app.get("/api/course", getCourses)
+app.use("/api/course", courseRoute)
+
+
 
 app.listen(port, () => {
     console.log(`app running at [http://localhost:${port}]`)

@@ -33,3 +33,35 @@ export const getCourses = async (req, res) => {
         })
     }
 }
+
+
+export const deleteCourse = async (req, res) => {
+    try {
+        await connection.execute("DELETE FROM `courses` WHERE `id`=?", [req.params.id]);
+        res.json({
+            success: true,
+            message: "Course deleted successfully"
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+export const updateCourse = async (req, res) => {
+    try {
+        const { name, price, description } = req.body
+        await connection.execute("UPDATE `courses` SET `name`=?, `price`=?, `description`=? WHERE `id`=?", [name, price, description, req.params.id]);
+        res.json({
+            success: true,
+            message: "Course updated successfully"
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+        })
+    }
+}

@@ -4,9 +4,9 @@ import 'dotenv/config'
 export const connectDb = async() => {
     try {
         const connection = await mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            database: 'nodejs2pm',
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            database: process.env.DB_NAME,
         });
 
         console.log("db connected...")
