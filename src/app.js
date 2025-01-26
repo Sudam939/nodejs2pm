@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import { createCompany } from './controllers/companyController.js'
 import { courseRoute } from './routes/courseRoute.js'
 import 'dotenv/config'
+import { authRoutes } from './routes/authRoutes.js'
 
 const app = express()
 const port = process.env.PORT
@@ -28,6 +29,7 @@ app.post("/api/company", createCompany)
 
 app.use("/api/course", courseRoute)
 
+app.use("/api", authRoutes)
 
 
 app.listen(port, () => {
