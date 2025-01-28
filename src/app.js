@@ -5,6 +5,7 @@ import { createCompany } from './controllers/companyController.js'
 import { courseRoute } from './routes/courseRoute.js'
 import 'dotenv/config'
 import { authRoutes } from './routes/authRoutes.js'
+import { authMiddleware } from './middleware/authMiddleware.js'
 
 const app = express()
 const port = process.env.PORT
@@ -27,7 +28,7 @@ app.get('/', (req, res) => {
 
 app.post("/api/company", createCompany)
 
-app.use("/api/course", courseRoute)
+app.use("/api/course", authMiddleware,courseRoute)
 
 app.use("/api", authRoutes)
 
